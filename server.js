@@ -4,7 +4,7 @@ const express = require("express");
 
 const routes = require("./routes");
 
-const APP_PORT = process.env.APP_PORT || 3000;
+const APP_PORT = process.env.APP_PORT || 3004;
 const app = express();
 
 app.use(express.static(path.join(__dirname, "public")));
@@ -26,7 +26,9 @@ app.listen(APP_PORT, () => {
 process.on("SIGINT", function () {
   const { mongoose } = require("./db");
   mongoose.connection.close(function () {
-    console.log("Mongoose default connection is disconnected due to application termination.\n");
+    console.log(
+      "Mongoose default connection is disconnected due to application termination.\n"
+    );
     process.exit(0);
   });
 });
