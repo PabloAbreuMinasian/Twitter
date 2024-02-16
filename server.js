@@ -25,10 +25,9 @@ app.listen(APP_PORT, () => {
  */
 process.on("SIGINT", function () {
   const { mongoose } = require("./db");
-  mongoose.connection.close(function () {
-    console.log(
-      "Mongoose default connection is disconnected due to application termination.\n"
-    );
-    process.exit(0);
-  });
+  mongoose.connection.close(); // Elimina la función de devolución de llamada aquí
+  console.log(
+    "Mongoose default connection is disconnected due to application termination.\n"
+  );
+  process.exit(0);
 });

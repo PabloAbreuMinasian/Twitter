@@ -6,12 +6,12 @@ const tweetSchema = new Schema(
     texto: String,
     user: {
       type: Schema.Types.ObjectId,
-      ref: User,
+      ref: "User",
     },
     likes: [
       {
         type: Schema.Types.ObjectId,
-        ref: User,
+        ref: "User",
       },
     ],
   },
@@ -20,6 +20,6 @@ const tweetSchema = new Schema(
   }
 );
 
-const Tweet = mongoose.model("User", tweetSchema);
+const Tweet = mongoose.model("Tweets", tweetSchema);
 
 module.exports = Tweet;
