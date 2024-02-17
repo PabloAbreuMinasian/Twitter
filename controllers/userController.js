@@ -1,9 +1,7 @@
 const User = require("../models/User");
 
 // Display a listing of the resource.
-async function index(req, res) {
-  await User.create({ firstname: "pablo" });
-}
+async function index(req, res) {}
 
 // Display the specified resource.
 async function show(req, res) {}

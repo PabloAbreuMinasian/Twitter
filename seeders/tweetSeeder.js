@@ -15,24 +15,24 @@
 
 const { fakerES: faker } = require("@faker-js/faker");
 const User = require("../models/User");
+const Tweet = require("../models/Tweets");
 
-async function userSeeder() {
-  const users = [];
+async function tweetSeeder() {
+  const users = await User.find();
+  const tweets = [];
 
-  for (let i = 0; i < 20; i++) {
-    users.push({
-      nombre: faker.person.firstName(),
-      apellido: faker.person.lastName(),
-      username: faker.internet.userName(),
-      password: faker.internet.password(),
-      email: faker.internet.email(),
-      descripcion: faker.lorem.paragraph(),
-      fotoDePerfil: faker.image.url(),
-      tweets: [],
-    });
-  }
-  await User.insertMany(users);
-  console.log("[Database] Se corrió el seeder de Users.");
+  for (const user of users)
+    for (let i = 0; i < 5; i++) {
+      const tweet = new Tweet({
+        texto: faker.lorem.paragraph(),
+        user: user._id,
+      });
+      tweets.push(tweet);
+      user.tweets.push(tweet._id);
+      await user.save();
+    }
+  await Tweet.insertMany(tweets);
+  console.log("[Database] Se corrió el seeder de tweets.");
 }
 
-module.exports = userSeeder;
+module.exports = tweetSeeder;
