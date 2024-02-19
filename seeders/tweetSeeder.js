@@ -22,7 +22,7 @@ async function tweetSeeder() {
   const tweets = [];
 
   for (const user of users)
-    for (let i = 0; i < 5; i++) {
+    for (let i = 0; i < 2; i++) {
       const tweet = new Tweet({
         texto: faker.lorem.paragraph(),
         user: user._id,
