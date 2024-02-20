@@ -29,14 +29,31 @@ async function store(req, res) {
 
 // Update the specified resource in storage.
 async function update(req, res) {
+  console.log("accedimos a la update function");
+
+  const tweetToUpdate = await Tweet.findById(req.params.identification);
   
+  if (!tweetToUpdate) {
+    return res.json({ msg: "couldnt find the tweet" });
+  }
+
+  if (tweetToUpdate.likes.includes(req.auth.sub)) {
+    return res.json({ msg: " you cannot like this tweet twice " });
+  }
+
+  tweetToUpdate.likes.push(req.auth.sub);
+  tweetToUpdate.save();
+
+  //return res.json(tweetToUpdate);
+  const tweetCount = tweetToUpdate.likes.length;
+  return res.json(tweetCount)
 }
 
 // Remove the specified resource from storage.
 async function destroy(req, res) {
   console.log("estamos en destroy funciton ");
   const tweetBorrado = await Tweet.findByIdAndDelete(req.params.identification);
-  return res.json(tweetBorrado)
+  return res.json(tweetBorrado);
 }
 
 // Display the specified resource.

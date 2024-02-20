@@ -14,8 +14,12 @@ router.post(
   }),
   tweetController.store
 );
-// router.get("/editar/:id", userController.edit);
-// router.patch("/:id", userController.update);
+
+
+router.patch("/:identification/likes", checkJwt({ secret: "string secreto, llevarlo a .env",algorithms: ["HS256"],}),  tweetController.update);
+
 router.delete("/:identification",checkJwt({ secret: "string secreto, llevarlo a .env",algorithms: ["HS256"],}) , tweetController.destroy);
+
+// router.get("/editar/:id", userController.edit);
 
 module.exports = router;
