@@ -1,3 +1,4 @@
+const { findById } = require("../models/Tweets");
 const User = require("../models/User");
 
 // Display a listing of the resource.
@@ -31,7 +32,13 @@ async function store(req, res) {
 }
 
 // Display the specified resource.
-async function show(req, res) {}
+async function show(req, res) {
+  console.log("accedimos a la funcion show de userController");
+  const username = req.params.username;
+  const userToShow = await User.findOne({ username }).select("-password");
+
+  return res.json(userToShow);
+}
 
 // Show the form for creating a new resource
 async function create(req, res) {}

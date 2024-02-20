@@ -27,11 +27,10 @@ async function store(req, res) {
   return res.json(newTweet);
 }
 
-// Display the specified resource.
-async function show(req, res) {}
-
 // Update the specified resource in storage.
-async function update(req, res) {}
+async function update(req, res) {
+  
+}
 
 // Remove the specified resource from storage.
 async function destroy(req, res) {
@@ -39,6 +38,9 @@ async function destroy(req, res) {
   const tweetBorrado = await Tweet.findByIdAndDelete(req.params.identification);
   return res.json(tweetBorrado)
 }
+
+// Display the specified resource.
+async function show(req, res) {}
 
 // Show the form for creating a new resource
 //async function create(req, res) {}
