@@ -20,6 +20,7 @@
 const publicRoutes = require("./publicRoutes");
 const userRoutes = require("./userRoutes");
 const authRoutes = require("./authRoutes");
+const tweetRoutes = require("./tweetRoutes");
 
 module.exports = (app) => {
   /**
@@ -29,9 +30,10 @@ module.exports = (app) => {
    * en inglés.
    */
 
-  app.use("/usuarios", userRoutes);
   app.use("/", publicRoutes);
-  app.use("/",authRoutes)
+  app.use("/usuarios", userRoutes);
+  app.use("/", authRoutes);
+  app.use("/tweets", tweetRoutes);
 };
 
 // PD: Recordar que es muy importante el orden en que se definen las rutas.

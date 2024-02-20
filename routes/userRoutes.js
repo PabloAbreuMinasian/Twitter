@@ -4,14 +4,18 @@ const userController = require("../controllers/userController");
 const { expressjwt: checkJwt } = require("express-jwt");
 
 router.get("/", checkJwt({ secret: "un string secreto, llevarlo a .env", algorithms: ["HS256"] }), userController.index);
+
 // router.get("/crear", userController.create);
 // router.get("/:id", userController.show);
+
 router.post("/", userController.store);
+
 // router.get("/editar/:id", userController.edit);
 // router.patch("/:id", userController.update);
+
 router.delete(
   "/:id",
-  checkJwt({ secret: "un string secreto, llevarlo a .env", algorithms: ["HS256"] }),
+  checkJwt({ secret:"string secreto, llevarlo a .env", algorithms: ["HS256"] }),
   userController.destroy
 );
 

@@ -29,7 +29,7 @@ async function login(req, res) {
   if (user.password !== req.body.password) {
     return res.json({ msg: "no encontramos tu password" });
   }
-  const token = jwt.sign({ sub: user.id }, "un string secreto, llevarlo a .env"); //process.env.JWT_TOKEN
+  const token = jwt.sign({ sub: user.id }, "string secreto, llevarlo a .env"); //process.env.JWT_TOKEN
   return res.json(token)                                                         //sub: user.id es el payload
 }
 
