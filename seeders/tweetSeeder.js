@@ -18,17 +18,17 @@ const User = require("../models/User");
 const Tweet = require("../models/Tweets");
 
 async function tweetSeeder() {
-  const users = await User.find();
-  const tweets = [];
+  const users = await User.find();  // traigo toda la lista de usuarios
+  const tweets = [];                // creo una lista para llenar
 
-  for (const user of users)
-    for (let i = 0; i < 25; i++) {
-      const tweet = new Tweet({
-        texto: faker.lorem.paragraph(),
-        user: user._id,
+  for (const user of users)          // para cada uno de los usuarios 
+    for (let i = 0; i < 2; i++) {     // doy 2 vueltas
+      const tweet = new Tweet({         // creo 2 tweets , a c/u lo llamo tweet 
+        texto: faker.lorem.paragraph(),   // texto random
+        user: user._id,                   // user con valor : user._id 
       });
-      tweets.push(tweet);
-      user.tweets.push(tweet._id);
+      tweets.push(tweet);                 // lleno la lista vacia tweets con los 2 tweet creados
+      user.tweets.push(tweet._id);       // a cada usuario.tweets le pusheo el tweet._id
       await user.save();
     }
   await Tweet.insertMany(tweets);

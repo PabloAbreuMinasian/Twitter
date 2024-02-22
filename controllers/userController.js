@@ -1,4 +1,3 @@
-const { findById } = require("../models/Tweets");
 const User = require("../models/User");
 
 // Display a listing of the resource.
@@ -13,9 +12,7 @@ async function index(req, res) {
 async function destroy(req, res) {
   console.log("accedimos a handler destroy");
 
-  const deletedUser = await User.findOneAndDelete({
-    _id: req.params.id,
-  });
+  const deletedUser = await User.findOneAndDelete(req.params.id);
   return res.json(deletedUser);
 }
 

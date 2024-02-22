@@ -18,11 +18,15 @@ async function index(req, res) {
 
 // Store a newly created resource in storage.
 async function store(req, res) {
+  const user = await User.findById(req.auth.sub);
   const newTweet = new Tweet({
     texto: req.body.text,
     user: req.auth.sub,
   });
   await newTweet.save();
+
+  await user.tweets.push(newTweet);
+  await user.save();
 
   return res.json(newTweet);
 }
@@ -32,28 +36,44 @@ async function update(req, res) {
   console.log("accedimos a la update function");
 
   const tweetToUpdate = await Tweet.findById(req.params.identification);
-  
+
   if (!tweetToUpdate) {
-    return res.json({ msg: "couldnt find the tweet" });
+    return res.json({ msg: "couldnt find the tweet man" });
   }
 
   if (tweetToUpdate.likes.includes(req.auth.sub)) {
-    return res.json({ msg: " you cannot like this tweet twice " });
+    console.log("estamos aqui");
+    console.log(tweetToUpdate.likes);
+
+    tweetToUpdate.likes.pull(req.auth.sub);
+
+    return res.json({
+      likes: tweetToUpdate.likes,
+      likesCount: tweetToUpdate.likes.length,
+    });
   }
 
   tweetToUpdate.likes.push(req.auth.sub);
   tweetToUpdate.save();
 
-  //return res.json(tweetToUpdate);
   const tweetCount = tweetToUpdate.likes.length;
-  return res.json(tweetCount)
+  return res.json({ tweetCount: tweetCount, likes: tweetToUpdate.likes });
 }
 
 // Remove the specified resource from storage.
 async function destroy(req, res) {
   console.log("estamos en destroy funciton ");
+  const tweetToDelete = await Tweet.findById(req.params.identification);
+
+  if (req.auth.sub !== String(tweetToDelete.user)) {
+    return res.json({ msg: "You cannot delete other users tweets" });
+  }
+
   const tweetBorrado = await Tweet.findByIdAndDelete(req.params.identification);
-  return res.json(tweetBorrado);
+  return res.json({
+    msg: "el tweet ha sido borrado",
+    tweetBorrado: tweetBorrado,
+  });
 }
 
 // Display the specified resource.
