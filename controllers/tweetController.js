@@ -11,7 +11,7 @@ const User = require("../models/User");
 
 // Display a listing of the resource.
 async function index(req, res) {
-  const tweets = await Tweet.find().sort({ createdAt: -1 }); // Ordena x fecha de creación descendente
+  const tweets = await Tweet.find().sort({ createdAt: -1 }).populate("user"); // Ordena x fecha de creación descendente
   const lastTweets = tweets.slice(0, 20); // ultimos 20
   return res.json(lastTweets);
 }

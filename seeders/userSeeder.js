@@ -19,7 +19,7 @@ const User = require("../models/User");
 async function userSeeder() {
   const users = [];
 
-  for (let i = 0; i < 1; i++) {
+  for (let i = 0; i < 10; i++) {
     users.push({
       nombre: faker.person.firstName(),
       apellido: faker.person.lastName(),
