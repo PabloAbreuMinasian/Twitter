@@ -21,8 +21,8 @@ async function userSeeder() {
 
   for (let i = 0; i < 3; i++) {
     users.push({
-      nombre: faker.person.firstName(),
-      apellido: faker.person.lastName(),
+      firstname: faker.person.firstName(),
+      lastname: faker.person.lastName(),
       username: faker.internet.userName(),
       password: faker.internet.password(),
       email: faker.internet.email(),

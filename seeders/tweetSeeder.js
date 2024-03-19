@@ -22,7 +22,7 @@ async function tweetSeeder() {
   const tweets = [];                // creo una lista para llenar
 
   for (const user of users)          // para cada uno de los usuarios 
-    for (let i = 0; i < 1; i++) {     // doy 2 vueltas
+    for (let i = 0; i < 3; i++) {     // doy 2 vueltas
       const tweet = new Tweet({         // creo 2 tweets , a c/u lo llamo tweet 
         texto: faker.lorem.paragraph(),   // texto random
         user: user._id,                   // user con valor : user._id 
