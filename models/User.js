@@ -3,8 +3,8 @@ const { mongoose, Schema } = require("../db");
 // Crear esquema y modelo User...
 const userSchema = new Schema(
   {
-    nombre: String,
-    apellido: String,
+    firstname: String,
+    lastname: String,
     username: String,
     password: String,
     email: String,

@@ -24,13 +24,13 @@ async function login(req, res) {
   console.log("llegamos a funcion login ");
   const user = await User.findOne({ username: req.body.username });
   if (!user) {
-    return res.json({ msg: "usuario no encontrado" });
+    return res.send("credenciales invalidas");
   }
   if (user.password !== req.body.password) {
     return res.json({ msg: "no encontramos tu password" });
   }
   const token = jwt.sign({ sub: user.id }, "string secreto, llevarlo a .env"); //process.env.JWT_TOKEN
-  return res.json(token)                                                         //sub: user.id es el payload
+  return res.json(token); //sub: user.id es el payload
 }
 
 // Display a listing of the resource.
